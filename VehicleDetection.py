@@ -464,7 +464,7 @@ def find_cars(img, conv_color, ystart, ystop, scale, svc, X_scaler, orient, pix_
                 predict_confidence  = svc.decision_function(test_features)
                 
                 ConfidenceThreshold_BigWindow = 0.65
-                ConfidenceThreshold_SmallWindow = 0.65
+                ConfidenceThreshold_SmallWindow = 0.55
                 
                 # (scale <= 1.75) refers to Window Size 64, 96, 112
                 # (scale > 1.75) refers to Window Size 128, 160

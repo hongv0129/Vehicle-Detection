@@ -35,10 +35,11 @@ My project solution includes the following files:
 
 ---
 ### Histogram of Oriented Gradients (HOG)
-  
+---
 ##### 1. Explain how (and identify where in your code) you extracted HOG features from the training images.
 ##### 2. Explain how you settled on your final choice of HOG parameters.  
-  
+---
+
 The example images in the size 64x64 as derived from the GTI database and the KITTI vision benchmark suite are used to form the training dataset.
   
 To begin with, all the `vehicle` and `non-vehicle` images are read, which will be used as inputs to the feature extrator later. 
@@ -101,12 +102,13 @@ the followings are observed on the above 'performance indicators of hyper-parame
   
 - 4) Changing "orientations" from 6 to 9 leads to a visible improvement in lower False Positive on the project video generally.
 
-**Implementation Details - please refer to `Code Line 27 to 125` in `File TrainClassifier.py`,  
+**Implementation Details - please refer to `Code Line 30 to 227` in `File TrainClassifier.py`,  
 and `Function extract_features()` in `File VehicleDetection.py`**
 
 ---
 ##### 3. Describe how (and identify where in your code) you trained a classifier using your selected HOG features (and color features if you used them).  
-  
+---
+
 With the library solution `sklearn.svm.LinearSVC` imported, a classifier using the approach of linear Support Vector Machine(SVM) is employed to identify whether an image contains a vehicle or not. 
 
 The extracted image features(denoted as X), before being input to train the classifier, are scaled to zero-mean and unit variance using "sklearn.preprocessing.StandardScaler":
@@ -155,13 +157,13 @@ Accuracy of SVC is  0.9949
 Save SVM model with its parameters into a pickle file...
 Done.
 ```
-**Implementation Details - Please refer to `Line 76 to 148 in File TrainClassifier.py`**
+**Implementation Details - Please refer to `Line 187 to 275 in File TrainClassifier.py`**
 
 ---
 ### Sliding Window Search
-
+---
 ##### 1. Describe how (and identify where in your code) you implemented a sliding window search.  How did you decide what scales to search and how much to overlap windows?
-
+---
 Five different scales of sliding windows are utilized for different searching areas, as displayed in the picture below:  
   
 - Group 1: Window Size 64 x 64 (Scale: 1.0), colored in Green  
@@ -187,7 +189,7 @@ By experiments, finally it is decided to apply the above five scales of windows 
 This is a trade-off: Increasing overlapping rate may generate more reliable results when an object reaches the edge or corner of a searching window, but more searching windows need to be processed, which slows down processing speed. 25% overlapping is just right enough.
 
 **Implementation Details - please refer to : **  
-- `Code Line 343 to 508 in File TrainClassifier.py`, 
+- `Code Line 446 to 609 in File TrainClassifier.py`, 
 - `Function find_cars()` in `File VehicleDetection.py`  
 - `Process_video_frame()` in `File DetectVehicleInVideo.py`  
 
@@ -246,7 +248,7 @@ Hyper-Parameters to Tune:
 ```
 As shown in the code above, different window size can take different threshold of "prediction confidence"  
 .  
-**Implementation Details - please refer to `Code Line 343 to 508 in File TrainClassifier.py`,  
+**Implementation Details - please refer to `Code Line 446 to 609 in File TrainClassifier.py`,  
 and `Function find_cars()` in `File VehicleDetection.py`**  
   
 ---
@@ -258,7 +260,7 @@ Here's the link to the demo video for vehicle detection:
 [![DemoVideo](http://img.youtube.com/vi/YOUTUBE_VIDEO_ID_HERE/0.jpg)](project_video_output.mp4)
 
 ---
-#### 2. Describe how (and identify where in your code) you implemented some kind of filter for false positives and some method for combining overlapping bounding boxes.
+#### 2. Describe how (and identify where in your code) you implemented some kind of filter for false positives and some method for combining overlapping bounding boxes.  
 ---
 
 **[1] Algorithm to Filter False Positives based on Heatmap Temperature Accumulation**  
@@ -281,8 +283,8 @@ Hyper-Parameters to Tune:
 -- `Process_video_frame()` in `File DetectVehicleInVideo.py`  
 -- `BoundingBoxes.add_boxes()`, `get_all_boxes()` & `get_bboxes_threshold()` in `File DetectVehicleInVideo.py`  
 .  
-.  
-**[2] Additional Mask to Further Filter Out False Positives  **   
+  
+**[2] Additional Mask to Further Filter Out False Positives**  
   
 In addition to the approach described in Section[1], extra filter is applied to achieve better results in removing false positives.  
 
@@ -321,4 +323,3 @@ With the tatics mentioned in the report and fine-tuning of hyper-parameters, fal
 3) Continue to fine-tune the threhold hyper-parameters introduced in this implementation for better results  
 4) Update the pipeline with new tatics or new approaches to achieve better performance  
   
-.  
